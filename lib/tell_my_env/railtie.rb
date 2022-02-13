@@ -9,14 +9,15 @@ module TellMyEnv
       else
         TellMyEnv::Starter::GREEN
       end
-      args[0] = TellMyEnv::Starter.color_text("#{Rails.env}>", color)
+      args[0] = TellMyEnv::Starter.color_text("#{Rails.env}> ", color)
       super(*args, &block)
     end
   end
 
   class Railtie < ::Rails::Railtie
     console do
-      IRB::Irb.send(:prepend, X) if defined?(IRB)
     end
   end
 end
+
+IRB::Irb.send(:prepend, TellMyEnv::X) if defined?(IRB)
